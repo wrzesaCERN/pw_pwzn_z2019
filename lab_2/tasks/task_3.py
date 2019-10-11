@@ -8,7 +8,20 @@ def unique(values):
     :return: Unique values in order of appear.
     :rtype: list
     """
-    pass
+    wynik = []
+    for elem in values:
+        print(elem)
+
+        iter = 0
+        if iter > 0:
+            for ii in range(iter):
+                if elem ==  unique[iter]:
+                    continue
+        wynik.append(elem)
+        print(elem)
+
+        iter+=1
+        return wynik
 
 
 if __name__ == "__main__":

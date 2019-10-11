@@ -1,21 +1,13 @@
 def counting_sort(values, _max, _min=0):
-    """
-    Function returns sorted list.
-
-    Sortowanie przez zliczanie to metoda polegajaca na sortowaniu wąskiego zakresu wartości
-    (około 1000 kolejnych elementów) poprzez zliczenie wystąpeiń elementów w podanej liście
-    i wypisania ich w kolejności.
-
-    :param values: List of values to sort.
-    :type values: List[int]
-    :param _max: Maximum value in list.
-    :type _max: int
-    :param _min: Maximum value in list.
-    :type _min: int
-    :return:
-    """
-    pass
-
+    wynik=[]
+    for iter in range(_min, _max):
+        for elem in values:
+            index = 0
+            if elem == iter:
+                index+=1;
+            for gupie in range(index):
+                wynik.append(iter)
+    return wynik
 
 if __name__ == '__main__':
     assert counting_sort(
