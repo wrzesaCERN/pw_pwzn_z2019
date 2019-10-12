@@ -9,20 +9,16 @@ def unique(values):
     :rtype: list
     """
     wynik = []
+    iter = 0
     for elem in values:
-        print(elem)
-
-        iter = 0
-        if iter > 0:
-            for ii in range(iter):
-                if elem ==  unique[iter]:
-                    continue
-        wynik.append(elem)
-        print(elem)
-
+        theOnlyOne = True
+        for ii in wynik:
+            if elem == ii:
+                theOnlyOne=False
+        if theOnlyOne:
+            wynik.append(elem)
         iter+=1
-        return wynik
-
+    return wynik
 
 if __name__ == "__main__":
     assert [1, 5, 3, 6, 7, 2, 4] == unique([1, 5, 3, 5, 6, 7, 2, 1, 4, 1, 5])
