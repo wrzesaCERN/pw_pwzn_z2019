@@ -14,6 +14,12 @@ Zwraca listę posortowanych obiektów typu datetime w strefie czasowej UTC.
 
 Funkcje group_dates oraz format_day mają pomoc w grupowaniu kodu.
 UWAGA: Proszę ograniczyć użycie pętli do minimum.
+
+dostajemy string dat patrzymy jak dziaął język formatowania wejścia parsujemy na obiekt data time
+ze strefą czasową zmieniamy na jakąś tam inną strefe i sortujemy
+
+
+
 """
 import datetime
 

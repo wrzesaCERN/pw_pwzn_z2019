@@ -12,6 +12,12 @@ def parse_input(input):
     :return: list of parsed list of integers
     :rtype: list
     """
+
+    """
+    Nic mi jeszcze nie działa bo zaczeliśmy robić zadnia 10 min przed końcem ...
+    
+    bez pętli!!!, przeparsowanie dokumentacja do  modułu string jakie są funkcje wbudowane 
+    """
     pass
 
 

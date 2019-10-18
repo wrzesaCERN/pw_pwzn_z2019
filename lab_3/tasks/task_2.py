@@ -14,6 +14,10 @@ def check_frequency(input):
     :type input: string
     :return: list of integers with results of operation 3
     :rtype: list
+    
+    
+    trzeba stworzyć strukturę która jak jest operacja 1 to doda do struktury blabalba czyl 5:1 .. nic nie widać na tej tablicy ..
+    
     """
     pass
 
