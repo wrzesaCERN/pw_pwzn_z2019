@@ -1,8 +1,8 @@
 def check_frequency(input):
     """
 
-    Zrobiłam tam jak rozumiem treść zadania a rozumeim tak:
-    1 - nieoczywiste : to zliczenie to dodanie? inaczej nie stworzymy naszego zbioru nie rozumiem
+    Zrobiłam tak jak rozumiem treść zadania, a rozumeim tak:
+    1 - nieoczywiste : to zliczenie to dodanie? inaczej nie stworzymy naszego zbioru 
     2 - oczywiste: to usunięcie ze zbioru jednej takiej liczby
     3 - oczywiste: ile razy jest coś w środku
 

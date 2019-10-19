@@ -1,7 +1,7 @@
 """
 Zadanie za 2 pkt.
 
-strasznie dużo czasu spędziłam na próbę rozgryzienia czego wymaga zadanie
+strasznie dużo czasu spędziłam na próbie rozgryzienia czego wymaga zadanie
 pierwsza część działa druga daje output jak w odpowiedzi ale nie działa ..
 
 """
@@ -74,7 +74,7 @@ def format_day(day, events):
 
 def parse_dates(date_str, date_format=''):
     """
-    To jest dopiero ciekawa funkcja ... powinna działać ... ale nie działa mimo, że output jest taki identyczny z dokładnością do \t co odpowiedź z assert...
+    To jest dopiero ciekawa funkcja ... powinna działać ... ale nie działa mimo, że output jest identyczny z dokładnością do \t co odpowiedź z assert...
     """
     lista_z_datami=sort_dates(dates)
     group_dates(lista_z_datami)
