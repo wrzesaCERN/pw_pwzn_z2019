@@ -2,24 +2,17 @@ def parse_input(input):
     """
     Splits multiline string into list of lists with integers.
 
-    Napisz funkcję przymującą wielolinijkowy ciąg znaków.
-    a zwracającą listę list liczb całkowitych znajdujących się w podanym ciągu znaków.
-    Nie używaj pętl for i while.
-    String może zawierać puste linie na początku i końcu.
-
-    :param input: string to parse
-    :type input: str
-    :return: list of parsed list of integers
-    :rtype: list
+    Jeżeli o to chodzi to działa...
     """
 
-    """
-    Nic mi jeszcze nie działa bo zaczeliśmy robić zadnia 10 min przed końcem ...
-    
-    bez pętli!!!, przeparsowanie dokumentacja do  modułu string jakie są funkcje wbudowane 
-    """
-    pass
 
+    import re
+    lista_wierszy=re.split("\n",input) #podział na wiersze
+    lista_wierszy_filtrowana=list(filter(None,lista_wierszy)) #usunięcie pustych
+    lista_cyfry=list(map(lambda x: x.split(),lista_wierszy_filtrowana)) #wyciągniećie cyfr z wierszy
+    print(lista_cyfry)
+    lista_cyfryint=list(map(lambda x: list(map(lambda y: int(y),x)),lista_cyfry)) # zamaiana na int 
+    return lista_cyfryint
 
 _input = """
 1 5

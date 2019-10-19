@@ -1,79 +1,111 @@
 """
 Zadanie za 2 pkt.
 
-Uzupełnij funckję parse_dates tak by zwracała przygotowaną wiadomość
-z posortowanymi zdarzeniami.
-Funkcja przyjmuje ciag zdarzeń (zapisanych w formie timestampu w dowolnej strefie czasowej),
-przetwarza je na zdarzenia w strefie czasowej UTC i sortuje.
-Posortowane zdarzenia są grupowane na dni i wypisywane od najnowszych do najstarszych.
-
-Na 1pkt. Uzupełnij funkcję sort_dates, która przyjmuje dwa parametry:
-- log (wielolinijkowy ciąg znaków z datami) zdarzeń
-- format daty (podany w assercie format ma być domyślnym)
-Zwraca listę posortowanych obiektów typu datetime w strefie czasowej UTC.
-
-Funkcje group_dates oraz format_day mają pomoc w grupowaniu kodu.
-UWAGA: Proszę ograniczyć użycie pętli do minimum.
-
-dostajemy string dat patrzymy jak dziaął język formatowania wejścia parsujemy na obiekt data time
-ze strefą czasową zmieniamy na jakąś tam inną strefe i sortujemy
-
-
+strasznie dużo czasu spędziłam na próbę rozgryzienia czego wymaga zadanie
+pierwsza część działa druga daje output jak w odpowiedzi ale nie działa ..
 
 """
 import datetime
 
-
 def sort_dates(date_str, date_format=''):
     """
-    Parses and sorts given message to list of datetimes objects descending.
-
-    :param date_str: log of events in time
-    :type date_str: str
-    :param date_format: event format
-    :type date_format: str
-    :return: sorted desc list of utc datetime objects
-    :rtype: list
+    DZIAŁA!!! :D
     """
 
+    # obróbka wejścia...
+    import re
+    lista_wersy=re.split("\n",date_str)
+    lista_wersy_na_wydarzenia=list(map(lambda x: x.split(),lista_wersy))
+    lista_wydarzen=list(filter(None,lista_wersy_na_wydarzenia)) # usunięcie pustych elementów tablicy ...
+    dir_miesiace = {'Jan':1, 'Feb':2, 'Mar':3, 'Apr':4, 'May':5,'Jun':6, 'Jul':7, 'Aug':8, 'Sep':9, 'Oct':10, 'Nov':11, 'Dec':12} # do konwersji (uzywane w następnym  kroku)
+
+    lista_wyjscie=[] # to będzie mój return...
+
+    #lecimy po wydarzeniach i obrabiamy każde...
+    iter_wyd=0
+    for elem in lista_wydarzen:
+
+        lista_czasu = lista_wydarzen[iter_wyd][4].split(":")
+
+        #przejście na UTC ... na początku liczę ile musze odjąć/dodać potem tworze deltę czasową i zmienam czas
+        dodaj_delte = False
+        if int(lista_wydarzen[iter_wyd][5]) < 0:
+            dodaj_delte = True
+        delta_h = int(lista_wydarzen[iter_wyd][5][1] + lista_wydarzen[iter_wyd][5][2])
+        delta_m = int(lista_wydarzen[iter_wyd][5][3] + lista_wydarzen[iter_wyd][5][4])
+        from datetime import timedelta
+        delta = timedelta(hours=delta_h, minutes=delta_m)
+
+        from datetime import datetime
+        datestr = f'{lista_wydarzen[iter_wyd][3]}-{dir_miesiace[lista_wydarzen[iter_wyd][2]]}-{lista_wydarzen[iter_wyd][1]} {lista_czasu[0]}:{lista_czasu[1]}:{lista_czasu[2]}'
+        format = '%Y-%m-%d %H:%M:%S'
+        if dodaj_delte:
+            data = datetime.strptime(datestr, format) + delta
+        else:
+            data = datetime.strptime(datestr, format) - delta
+        import datetime
+        element_do_ostatecznej_listy = datetime.datetime(data.year,data.month,data.day,data.hour,data.minute,data.second,tzinfo=datetime.timezone.utc)
+        lista_wyjscie.append(element_do_ostatecznej_listy)
+        iter_wyd+=1
+
+    return lista_wyjscie
 
 def group_dates(dates):
     """
-    Groups list of given days day by day.
-
-    :param dates: List of dates to group.
-    :type dates: list
-    :return:
+    Jeżeli o to chodzi to chyba działa...
     """
-
+    #komentarz w parse_dates... tu tylko w kolejności ustawia
+    from datetime import datetime
+    sorted(dates,key=lambda date: datetime.strptime(str(date),'%Y-%m-%d %H:%M:%S+00:00'))
 
 def format_day(day, events):
     """
-    Formats message for one day.
-
-    :param day: Day object.
-    :type day: datettime.datetime
-    :param events: List of events of given day
-    :type events: list
-    :return: parsed message for day
-    :rtype: str
+    Jeżeli o to chodzi to chyba działa...
     """
-    pass
+    #zabawa z formatowaniem ...
+    message = day
+    if len(events)>1:
+        for elem2 in events:
+            message =message+'\n'+r'\t'+elem2
+    elif len(events)==1:
+        message = message +'\n'+ r'\t' + str(*events)
+    return message
 
 
 def parse_dates(date_str, date_format=''):
     """
-    Parses and groups (in UTC) given list of events.
-
-    :param date_str: log of events in time
-    :type date_str: str
-    :param date_format: event format
-    :type date_format: str
-    :return: parsed events
-    :rtype: str
+    To jest dopiero ciekawa funkcja ... powinna działać ... ale nie działa mimo, że output jest taki identyczny z dokładnością do \t co odpowiedź z assert...
     """
-    pass
+    lista_z_datami=sort_dates(dates)
+    group_dates(lista_z_datami)
+    slownik = {} # uznałam, że z takim czymś będzie mi łatwiej ...
+    #robię to grupowanie tutaj bo funkcja grupująca ma nic nie zrawcać więc nie mogę zrobić i zwrócić tego słownika z tamtej funcji, nie mogę też funkcją podrzędną uzupełnić jakiegoś słownika globalnego (a pzynajmniej nie umiem)
+    for elem in lista_z_datami:
+        day_jak_w_outpucie=str(elem.day)
+        month_jak_w_outpucie=str(elem.month)
+        if elem.day<10:
+            day_jak_w_outpucie=f'0{elem.day}'
+        if elem.month < 10:
+            month_jak_w_outpucie=f'0{elem.month}'
+        if str(elem.year) + '-' + month_jak_w_outpucie + '-' + day_jak_w_outpucie in slownik:
+            slownik[str(elem.year) + '-' + month_jak_w_outpucie + '-' + day_jak_w_outpucie] = [*slownik[str(elem.year) + '-' + month_jak_w_outpucie + '-' + day_jak_w_outpucie],str(elem.hour) + ':' + str(elem.minute) + ':' + str(elem.second)]
+        else:
+            slownik[str(elem.year) + '-' + month_jak_w_outpucie + '-' + day_jak_w_outpucie] = [str(elem.hour) + ':' + str(elem.minute) + ':' + str(elem.second)]
 
+    output=r'"""'
+    iter2=0
+    for elem in slownik:
+        out=output
+        if iter2>0:
+            output = '\n'+f"{out}"+"\n----\n"
+        output=f"{output}"+f"{format_day(elem,slownik[elem])}"
+
+        iter2+=1
+
+        if iter2 == (len(slownik)):
+           output = f'{output}'+r'"""'
+    print(output)
+    return output
 
 dates = """
 Sun 10 May 2015 13:54:36 -0700
@@ -98,3 +130,4 @@ assert parse_dates(dates) == """2015-05-10
 ----
 2015-05-01
 \t13:54:36"""
+
