@@ -1,9 +1,7 @@
 """
 Zadanie za 2 pkt.
-
 strasznie dużo czasu spędziłam na próbie rozgryzienia czego wymaga zadanie
 pierwsza część działa druga daje output jak w odpowiedzi ale nie działa ..
-
 """
 import datetime
 
@@ -130,4 +128,3 @@ assert parse_dates(dates) == """2015-05-10
 ----
 2015-05-01
 \t13:54:36"""
-

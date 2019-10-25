@@ -1,12 +1,9 @@
 def check_frequency(input):
     """
-
     Zrobiłam tak jak rozumiem treść zadania, a rozumeim tak:
     1 - nieoczywiste : to zliczenie to dodanie? inaczej nie stworzymy naszego zbioru 
     2 - oczywiste: to usunięcie ze zbioru jednej takiej liczby
     3 - oczywiste: ile razy jest coś w środku
-
-
     Perform counting based on input queries and return queries result.
     Na wejściu otrzymujemy parę liczb całkowitych - operacja, wartość.
     Możliwe operacje:
@@ -16,7 +13,6 @@ def check_frequency(input):
     Do parsowania wejścia wykorzystaj funkcję parse_input.
     Po wejściu (już jakoliście) iterujemy tylko raz (jedna pętla).
     Zbiór danych zrealizuj za pomocą struktury z collections.
-
     """
 
     import modul
@@ -36,7 +32,7 @@ def check_frequency(input):
 
 _input = """
 1 5
-1 6
+1 7
 2 1
 3 2
 1 10

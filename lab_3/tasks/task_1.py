@@ -1,7 +1,6 @@
 def parse_input(input):
     """
     Splits multiline string into list of lists with integers.
-
     Jeżeli o to chodzi to działa...
     """
 
@@ -23,7 +22,5 @@ _input = """
 1 6
 2 5
 3 2
-
-
 """
 assert parse_input(_input) == [[1, 5], [1, 6], [3, 2], [1, 10], [1, 10], [1, 6], [2, 5], [3, 2]]
