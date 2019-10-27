@@ -6,31 +6,18 @@ Atrybut memory ma być nienadpisywalny.
 Część 2 (1 pkt): jeżeli drugi argument działania nie jest podany (None)
 użyj wartość z pamięci kalkulatora. Obsłuż przypadki skrajne.
 
-
-jezeli nie ma musi podnieść błąd
-
-operacje w kalkulatorze  robimy słownik możan samemu zdefiniowac metody lub jest coś zbudowane
-
-memory === properities????????????
-property nie powinno zmienać wyników obiektu
-
-memory nie edytowalne w prosty sposób -- aby było chronione
-
-dander main mów nam w jaki sposób został moduł zaimportowany  wykonuj tylko ten blok kodu, a jeżeli się importuje to coś innego
-
 """
 
 
 class Calculator:
     def __init__(self):
         self.memory = None
-        self.tomem =None
         # Podpowiedz: użyj atrybutu do przechowywania wyniku
         # ostatniej wykonanej operacji, tak by metoda memorize przypisywała
         # wynik zapisany w tym atrybucie
         self._short_memory = None
 
-    def run(self, operator, arg1, arg2):
+    def run(self, operator, arg1, arg2=None):
         """
         Returns result of given operation.
 
@@ -43,33 +30,39 @@ class Calculator:
         :return: result of operation
         :rtype: float
         """
-        if operator == '+':
-            self.tomem = arg1 + arg2
-            return arg1 + arg2
-        elif operator == '-':
-            self.tomem = arg1 - arg2
-            return arg1 - arg2
-        elif operator == '*':
-            self.tomem = arg1 * arg2
-            return arg1 * arg2
-        elif operator == ':':
-            self.tomem = arg1 / arg2
-            return arg1/arg2
+        global super_slownik
+        if arg2 == None:
+            if self.memory == None:
+                raise ValueError("Podaj drugi argument bo nie sięgam pamięcią czasów w których byś coś zapisał/a do pamięcie...")
+            else:
+                arg2=self.memory
 
-        raise NotImplementedError
+        super_slownik = {'+': arg1 + arg2, '-': arg1 - arg2, '*': arg1 * arg2, '/': arg1 / arg2}
+
+        if super_slownik[operator] == False:
+            raise ValueError("Choćbym nie wiem jak chciała to nie wiem.. Nie mam takej funkcji w słowniku...")
+        else:
+            self._short_memory = super_slownik[operator]
+            return super_slownik[operator]
+
 
     def memorize(self):
         """Saves last operation result to memory."""
-        self.memory = self.tomem
-        raise NotImplementedError
+        if self._short_memory ==  None:
+            raise ValueError("Jescze nic nie policzyłaś/łeś.. to co cy chcesz zapisywać ...")
+        else:
+            self.memory = self._short_memory
 
     def clean_memory(self):
         """Cleans memorized value"""
-        raise NotImplementedError
+        self.memory = None
 
     def in_memory(self):
         """Prints memorized value."""
-        print(f"Zapamiętana wartość: {self.memory}")
+        if self._short_memory ==  None:
+            raise ValueError("Jescze nic nie zapisałaś/łeś.. to co cy chcesz odczytać...")
+        else:
+            print(f"Zapamiętana wartość: {self.memory}")
 
 
 if __name__ == '__main__':
@@ -79,3 +72,4 @@ if __name__ == '__main__':
     calc.in_memory()
     c = calc.run('/', 9)
     assert c == 3
+
