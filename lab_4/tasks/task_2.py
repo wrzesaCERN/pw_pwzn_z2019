@@ -71,7 +71,6 @@ class Vector:
     def calculate_vector(beg, end):
         """
         Calculate vector from given points
-
         :param beg: Begging point
         :type beg: list, tuple
         :param end: End point
@@ -94,7 +93,6 @@ class Vector:
         """"""
         """
         Generate vector from given points.
-
         :param beg: Begging point
         :type beg: list, tuple
         :param end: End point
