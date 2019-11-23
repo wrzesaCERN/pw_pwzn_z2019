@@ -11,11 +11,25 @@ dwuelementową tuplę zawierającą liczbę poprawnych wierszy:
 """
 import re
 
-
 def check_animal_list(file_path):
-    pass
+    with open(file_path, 'r') as _file:
+        lines = _file.readlines()
 
+    panowie = 0
+    panie = 0
+
+    for line in lines:
+        line = line.strip()
+        pan = bool(re.fullmatch(r'^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}_M_[\d]\.[\d]{3}e[\-\+][\d]{2}$',line))
+        if pan:
+            panowie += 1
+
+        pani = bool(re.fullmatch(r'^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}_F_[\d]\.[\d]{3}e[\-\+][\d]{2}$',line))
+        if pani:
+            panie += 1
+
+    return (panie,panowie)
 
 if __name__ == '__main__':
     assert check_animal_list('s_animals_sce.txt') == (2, 2)
-    assert check_animal_list('animals_sc_corrupted.txt') == (6, 0)
+    assert check_animal_list('animals_sc_corrupted.txt') == (5, 1)
