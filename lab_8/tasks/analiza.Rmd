@@ -1,0 +1,57 @@
+---
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.3.0
+  kernelspec:
+    display_name: Python 2
+    language: python
+    name: python2
+---
+
+```{python}
+import numpy as np
+from tools.fit_funcs import least_sq
+import matplotlib.pyplot as plt
+
+```
+
+```{python}
+dane = np.genfromtxt('data/input01.txt', delimiter=',', dtype=np.float, skip_header=True)
+
+a,b = least_sq(dane[:,0:2].T)
+x = dane[:, 0]
+y = dane[:, 1]
+e = dane[:, 2]
+
+```
+
+```{python}
+cutoff_lower = dane[e/y <0.05, :]
+cutoff_greater = dane[e/y >= 0.05, :]
+a_ls, b_ls =least_sq(cutoff_lower[:, 0:2].T)
+```
+
+```{python}
+super_figure = plt.figure()
+plt.errorbar(x=cutoff_lower[:, 0], y=cutoff_lower[:, 1], yerr=cutoff_lower[:, 2], markersize=2, marker='s',color='black',ls='none')
+plt.errorbar(x=cutoff_greater[:, 0], y=cutoff_greater[:, 1], yerr=cutoff_greater[:, 2], markersize=2, marker='^',color='red', ls='none')
+plt.plot(x, x*a + b, label='all',  color='black', linestyle='--')
+plt.plot(cutoff_lower[:, 0], cutoff_lower[:, 0]*a_ls + b_ls, label=r'$\Delta < 5\%$', color='blue')
+plt.legend()
+```
+
+```{python}
+super_figure.savefig('fitted_input01.png', dpi=100)
+```
+
+```{python}
+
+```
+
+```{python}
+
+```

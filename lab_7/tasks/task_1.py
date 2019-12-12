@@ -7,6 +7,8 @@ def least_sq(xy):
     Funkcja liczy parametry funkcji liniowej ax+b do danych za pomocą metody
     najmniejszych kwadratów.
     (1 pkt.)
+
+
     A = (N*Sum(xy)-Sum(x)*Sum(y))/Delta
     B = (Sum(x^2)*Sum(y)-Sum(x)*Sum(xy))/Delta
     Delta = N*Sum(x^2) - (Sum(x)^2)
