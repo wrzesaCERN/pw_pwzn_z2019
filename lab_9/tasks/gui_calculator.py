@@ -1,7 +1,7 @@
 import tkinter as tk
 from functools import partial
 
-from lab_9.tools.calculator import Calculator
+from tools.calculator import Calculator
 
 
 class CalculatorGUI(tk.Frame):
@@ -31,12 +31,29 @@ class CalculatorGUI(tk.Frame):
         num_pad = tk.Frame(bottom_pad)
         num_pad.pack(side=tk.LEFT)
         ii = 0
+        tk.Button(
+            num_pad, text='MC', width=5,
+            command=self.calculator.clean_memory
+        ).grid(row=0, column=0)
+        ii += 1
+        tk.Button(
+            num_pad, text='MR', width=5,
+            command=self.calculator.in_memory
+        ).grid(row=1, column=0)
+        ii += 1
+        tk.Button(
+            num_pad, text='M+', width=5,
+            command=self.calculator.memorize
+        ).grid(row=2, column=0)
+        ii += 1
+
         for ii, num in enumerate(range(9, 0, -1)):
             tk.Button(
                 num_pad, text=num, width=5,
                 command=partial(self.update_var, num)
-            ).grid(row=ii // 3, column=(2-ii) % 3)
+            ).grid(row=ii // 3, column=(2-ii) % 3+1)
         ii += 1
+
         tk.Button(
             num_pad, text='C', width=5,
             command=self.clear
@@ -48,9 +65,14 @@ class CalculatorGUI(tk.Frame):
         ).grid(row=ii // 3, column=ii % 3)
         ii += 1
         tk.Button(
+            num_pad, text='.', width=5,
+            command=partial(self.update_var, '.')
+        ).grid(row=ii // 3, column=ii % 3)
+        ii += 1
+        tk.Button(
             num_pad, text='=', width=5,
             command=self.calculate_result
-        ).grid(row=ii // 3, column=ii % 3)
+        ).grid(row=ii // 4, column=ii % 3+3)
 
         # klawiatura operacji
         operation_pad = tk.Frame(bottom_pad)
@@ -97,12 +119,13 @@ class CalculatorGUI(tk.Frame):
 
     def calculate_result(self):
         if self.variables['var_1'] and self.variables['var_2']:
-            var_1 = int(self.variables['var_1'])
-            var_2 = int(self.variables['var_2'])
+            var_1 = float(self.variables['var_1'])
+            var_2 = float(self.variables['var_2'])
             self.screen['text'] = self.calculator.run(
                 self.variables['operator'], var_1, var_2
             )
             self.init_variables()
+
 
 
 if __name__ == '__main__':
