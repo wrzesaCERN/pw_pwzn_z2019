@@ -7,3 +7,4 @@ from lab_11.tasks.tools.calculator import (
     NotNumberArgument,
     WrongOperation,
 )
+#obecnosc
