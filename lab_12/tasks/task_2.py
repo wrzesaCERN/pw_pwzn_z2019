@@ -4,9 +4,25 @@ from time import time
 
 
 def log_run(fun):
-    pass
+    @wraps(fun)
+    def wrapper(*args, **kwargs):
+        date = datetime.now()
+        super_string = date.strftime("%Y/%m/%dT%H:%M:%S")
 
+        klucze = kwargs.keys() if len(kwargs) else "-"
 
+        start = time()
+        ret = fun(*args, **kwargs)
+        end = time()
+        diff = end-start
+
+        print(f"{super_string}| function {fun.__name__} called with:")
+        print(f"{len(args)} positional parameters.")
+        print(f"optionl parameters: {klucze}")
+        print(f"returned: {ret} ({diff:.2e}s)")
+        return ret
+
+    return wrapper
 @log_run
 def fun(*args, **kwargs):
     pass

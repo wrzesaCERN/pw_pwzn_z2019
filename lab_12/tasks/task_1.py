@@ -1,5 +1,13 @@
 def generate_fibonacci(n=100):
-    pass
+    if n < 1 or n > 100:
+        raise RuntimeError
+
+    fib_k = 0
+    fib_kk = 1
+    for i in range(n):
+        yield fib_k
+        fib_k, fib_kk = fib_kk, fib_k + fib_kk
+
 
 
 if __name__ == '__main__':
@@ -16,4 +24,3 @@ if __name__ == '__main__':
         assert isinstance(exc, RuntimeError)
 
 
-#obecnosc
